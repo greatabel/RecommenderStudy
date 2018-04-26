@@ -14,3 +14,5 @@ movie_ratings
 cat(black$bold$bgCyan("sim_users"), '\n')
 sim_users = cor(movie_ratings[,1:6],use="complete.obs")
 sim_users
+
+cat(black$bold$bgCyan("可以看出: Lisa Rose ~Toby with 0.99 和 Mick LaSalle ~ Toby 0.92"), '\n')
