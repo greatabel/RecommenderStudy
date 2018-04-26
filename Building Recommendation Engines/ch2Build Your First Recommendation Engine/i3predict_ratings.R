@@ -1,7 +1,7 @@
 library(crayon)
 library(reshape2)
 library(data.table)
-
+library(dplyr)
 cat(black$bold$bgCyan("预测"), '\n')
 
 
@@ -38,3 +38,13 @@ cat(black$bold$bgYellow("评分和相似性进行乘积"), '\n')
 ratings_t$sim_rating = ratings_t$rating*ratings_t$similarity
 ratings_t
 
+cat(red$bold$bgYellow("dplyr库派上用场，对电影的评分进行求和"), '\n')
+result = ratings_t %>% group_by(title) %>% summarise(sum(sim_rating)/sum(similarity))
+result
+class(result)
+'----'
+cat(red$bold$bgYellow("计算toby已经看过电影的平均评分"), '\n')
+toby_mean <- mean(rating_critic$rating,na.rm = T)
+toby_mean
+
+cat(red$bold$bgYellow("我们可以推荐分数超过toby已经看过的平均分的电影"), '\n')
