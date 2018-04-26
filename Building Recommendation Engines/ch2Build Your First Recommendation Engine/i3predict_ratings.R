@@ -33,3 +33,8 @@ x
 cat(black$bold$bgGreen("合并SQL记录和相似性"), '\n')
 ratings_t =  merge(x = ratings_t, y = x, by = "critic", all.x = TRUE)
 ratings_t
+
+cat(black$bold$bgYellow("评分和相似性进行乘积"), '\n')
+ratings_t$sim_rating = ratings_t$rating*ratings_t$similarity
+ratings_t
+
