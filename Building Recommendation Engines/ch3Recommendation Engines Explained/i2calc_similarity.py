@@ -1,5 +1,6 @@
 import os
 import csv
+from termcolor import colored
 import pandas as pd
 import i0read_csv
 
@@ -10,5 +11,11 @@ if __name__ == "__main__":
                                         index='title',
                                         values='rating')
     print(pivot_ratings.to_string())
-    # print(type(pivot_ratings))
 
+    print(colored('相似度计算=======>', 'red', attrs=['reverse', 'blink']))
+    print('Claudia Puig', pivot_ratings['Claudia Puig'])
+    cor_pr = pivot_ratings.corrwith(pivot_ratings['Claudia Puig'])
+    print(cor_pr,'\n')
+
+    sm = pivot_ratings.corr()
+    print(sm.to_string())
