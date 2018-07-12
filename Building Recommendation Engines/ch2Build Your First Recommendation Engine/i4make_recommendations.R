@@ -24,6 +24,7 @@ generateRecommendations <- function(userId){
   ratings_t$sim_rating = ratings_t$rating*ratings_t$similarity
   #predicting the non rated titles
   result = ratings_t %>% group_by(title) %>% summarise(sum(sim_rating)/sum(similarity))
+  cat(red$bold$bgCyan(userId), '\n')
   return(result)
 }
 
