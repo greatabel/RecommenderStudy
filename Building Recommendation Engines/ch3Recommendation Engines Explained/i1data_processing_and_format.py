@@ -10,4 +10,5 @@ if __name__ == "__main__":
                                         index='title',
                                         values='rating')
     print(pivot_ratings)
+    print(type(pivot_ratings))
 
