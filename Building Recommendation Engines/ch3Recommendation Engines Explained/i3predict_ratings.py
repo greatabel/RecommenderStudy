@@ -28,7 +28,7 @@ if __name__ == "__main__":
     print(colored('3. 处理原始表，加上相似性列，筛选出未打分 =>', 
                   'red', attrs=['reverse', 'blink']))
     remain_films = ratings[ratings['title'].isin(missing_films)]
-
+    remain_films.is_copy = False
     remain_films['similarity'] = remain_films['critic'].map(sm[demo].get)
     remain_films['sim_rating'] = remain_films.similarity * remain_films.rating
 
