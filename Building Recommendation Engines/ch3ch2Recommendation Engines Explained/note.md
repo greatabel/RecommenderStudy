@@ -1,7 +1,8 @@
 # 推荐引擎的演化
 
-1st是: collaborative filtering （协同过滤）或者neighborhood method recommenders.
-       它们有冷启动问题，难以处理数据稀疏情况。
+1st是: collaborative filtering （协同过滤）或者
+    neighborhood method recommenders.
+    它们有冷启动问题，难以处理数据稀疏情况。
 
 1. 为啦处理大量用户数据稀疏，使用啦Matrix Factorization（矩阵分解）和
   singular value decomposition（奇异值分解）
