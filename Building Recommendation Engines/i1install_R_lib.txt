@@ -1,4 +1,4 @@
-install.packages(c("dplyr", "data.table", "dplyr", "lsa"), 
+install.packages(c("dplyr", "data.table", "dplyr", "lsa", "clusteval"), 
 repos='https://mirrors.ustc.edu.cn/CRAN/')
 
 <!-- install.packages(c("tableHTML"), repos='https://mirrors.ustc.edu.cn/CRAN/') -->
