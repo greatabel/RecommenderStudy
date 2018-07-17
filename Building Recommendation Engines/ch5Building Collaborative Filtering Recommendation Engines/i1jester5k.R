@@ -1,4 +1,5 @@
 library(crayon)
+library(methods)
 
 library(recommenderlab)
 
@@ -13,3 +14,7 @@ class(Jester5k)
 
 'dim(Jester5k) =>'
 dim(Jester5k)
+
+# hist(getRatings(Jester5k), main="Distribution of ratings")
+# head(Jester5k)
+head(as(Jester5k,"matrix")[,1:10])
