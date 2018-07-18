@@ -1,10 +1,12 @@
 import i4ml100k
 import numpy as np
 import pandas as pd
+import sklearn
+from sklearn.cross_validation import train_test_split
 
 # df = i4ml100k.load_csv_to_df()
-path = '../data/ml100k_small.csv'
-df = pd.read_csv(path, sep=",", header=0)
+
+df = pd.read_csv('../data/ml100k_small.csv', sep=",", header=0)
 
 
 n_users = df.UserID.unique().shape[0]
@@ -29,3 +31,21 @@ sparsity = float(len(ratings.nonzero()[0]))
 sparsity /= (ratings.shape[0] * ratings.shape[1])
 sparsity *= 100
 print('Sparsity: {:4.2f}%'.format(sparsity))
+
+ratings_train, ratings_test = train_test_split(ratings,test_size=0.33, random_state=42)
+print(ratings_test.shape)
+
+# user-based similarity-------------------------------------
+dist_out = 1-sklearn.metrics.pairwise.cosine_distances(ratings_train)
+print(type(dist_out), dist_out.shape)
+
+user_pred = dist_out.dot(ratings_train) / np.array([np.abs(dist_out).sum(axis=1)]).T
+
+from sklearn.metrics import mean_squared_error
+def get_mse(pred, actual):
+    # Ignore nonzero terms.
+    pred = pred[actual.nonzero()].flatten()
+    actual = actual[actual.nonzero()].flatten()
+    return mean_squared_error(pred, actual)
+
+print(get_mse(user_pred, ratings_train), get_mse(user_pred, ratings_test))
