@@ -1,8 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def load_csv_to_df():    
-    path = "../data/ml-100k_udata.csv"
+def load_csv_to_df(path="../data/ml-100k_udata.csv"):
     df = pd.read_csv(path, sep="\t", names=['UserID', 'ItemID', 'Rating', 'Timestamp'])
     return df
 
