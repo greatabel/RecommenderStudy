@@ -2,15 +2,23 @@ import json
 import numpy as np
 
 
-def find_similar_users(dataset, user, num_users):
-    if user not in dataset:
-        raise TypeError('Cannot find ' + user + ' in the dataset')
-        
+def euclidean_score(dataset, user1, user2):
+    ""
+
+def pearson_score(dataset, user1, user2):
+    ""
+
 if __name__=='__main__':
     ratings_file = 'ratings.json'
     with open(ratings_file, 'r') as f:
         data = json.loads(f.read())
 
-    user = 'David Smith'
-    print('\nUsers similar to ' + user + ':\n')
-    similar_users = find_similar_users(data, user, 3)
+    user1 = 'David Smith'
+    user2 = 'Brenda Peterson'
+
+
+    print("\nEuclidean score:")
+    print(euclidean_score(data, user1, user2))
+
+    print("\nPearson score:")
+    print(pearson_score(data, user1, user2))
