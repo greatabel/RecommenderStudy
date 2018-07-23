@@ -38,4 +38,10 @@ corr_bones = pd.DataFrame(similar_to_bones, columns=['pearsonR'])
 corr_bones.dropna(inplace=True)
 corr_summary = corr_bones.join(average_rating['ratingCount'])
 summary_head = corr_summary[corr_summary['ratingCount']>=300].sort_values('pearsonR', ascending=False).head(10)
-print(summary_head)
+print(type(summary_head))
+
+ibsn_list = summary_head.axes[0].tolist()
+books_corr_to_bones = pd.DataFrame(ibsn_list, 
+                                  index=np.arange(10), columns=['ISBN'])
+corr_books = pd.merge(books_corr_to_bones, books, on='ISBN')
+print(corr_books)
