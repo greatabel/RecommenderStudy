@@ -14,17 +14,8 @@ ratings = pd.read_csv('BX-CSV/BX-Book-Ratings.csv', sep=';', error_bad_lines=Fal
 ratings.columns = ['userID', 'ISBN', 'bookRating']
 
 print('-----------------------------------------')
-rating_count = pd.DataFrame(ratings.groupby('ISBN')['bookRating'].count())
-h = rating_count.sort_values('bookRating', ascending=False).head()
-print(colored('rating_count =>', 
-              'red', attrs=['reverse', 'blink']))
+average_rating = pd.DataFrame(ratings.groupby('ISBN')['bookRating'].mean())
+average_rating['ratingCount'] = pd.DataFrame(ratings.groupby('ISBN')['bookRating'].count())
+h = average_rating.sort_values('ratingCount', ascending=False).head()
 print(h)
-serie = h['bookRating']
-ibsn_list = serie.axes[0].tolist()
-print('ibsn_list=>', ibsn_list)
-
-most_rated_books = pd.DataFrame(ibsn_list, index=np.arange(5), columns = ['ISBN'])
-most_rated_books_summary = pd.merge(most_rated_books, books, on='ISBN')
-
-print(most_rated_books_summary)
-
+print('得到最多评价的书籍 并不是平均分最高的')
