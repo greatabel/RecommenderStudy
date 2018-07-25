@@ -8,6 +8,7 @@ from sklearn.decomposition import TruncatedSVD
 from termcolor import colored
 
 # http://www.ituring.com.cn/article/497300
+# https://towardsdatascience.com/how-did-we-build-book-recommender-systems-in-an-hour-part-2-k-nearest-neighbors-and-matrix-c04b3c2ef55c
 books = pd.read_csv('BX-CSV/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 books.columns = ['ISBN', 'bookTitle', 'bookAuthor', 'yearOfPublication',
                  'publisher', 'imageUrlS', 'imageUrlM', 'imageUrlL']
