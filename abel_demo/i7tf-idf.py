@@ -1,5 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 
+# https://blog.csdn.net/Eastmount/article/details/50323063
+
 #语料
 corpus = [
     'This is the first document.',
