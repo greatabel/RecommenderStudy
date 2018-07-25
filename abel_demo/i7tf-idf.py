@@ -16,3 +16,12 @@ X = vectorizer.fit_transform(corpus)
 word = vectorizer.get_feature_names()
 
 print(word, '查看词频结果', X.toarray())
+
+
+
+from sklearn.feature_extraction.text import TfidfTransformer
+
+tranformer = TfidfTransformer()
+print(tranformer)
+tfidf = tranformer.fit_transform(X)
+print(tfidf.toarray())
