@@ -28,10 +28,11 @@ for movie1 in distinct_movies:
         
     movie1_data = ratings[ratings['movieId']==movie1]
     distinct_cust = len(np.unique(movie_data['userId']))
+    distinct_cust1 = len(np.unique(movie1_data['userId']))
     movie2_data = movie1_data[movie1_data['userId'].isin(np.unique([movie_data['userId']]))]
     distinct_cust_common = len(np.unique(movie2_data['userId']))
-    fraction_common_cust = float(distinct_cust_common)/float(distinct_cust)
-    
+    fraction_common_cust=(float(distinct_cust_common)*len(np.unique(ratings['userId']))) \
+                            /(float(distinct_cust)*float(distinct_cust1))
     
     movie_temp =pd.DataFrame(columns=['movieId','movieId1','association'])
     
@@ -46,5 +47,6 @@ for movie1 in distinct_movies:
     if j%500 == 0:
         print ("j=", j)
     j = j+1
+
 movie_association = movie_association.sort_values(['association'], ascending=False)
 print(movie_association.head(100))
