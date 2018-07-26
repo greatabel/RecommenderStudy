@@ -42,7 +42,7 @@ for movie1 in distinct_movies:
     
     
     movie_association = movie_association.append(movie_temp, ignore_index=True)
-    if j%500 == 0:
-        print (j)
+    # if j%500 == 0:
+    #     print (j)
     j = j+1
-print(movie_association)
+print(movie_association.head(10))
