@@ -11,3 +11,13 @@ tags = pd.read_csv("movies_ratings_tags_csv/tags.csv",encoding="ISO-8859-1")
 
 a = ratings[ratings['userId']==320]
 print(a.head(5), '\n', a[a['movieId']==260])
+
+TF= tags.groupby(['movieId','tag'], as_index = False, sort = False).count()\
+        .rename(columns = {'userId': 'tag_count_TF'})[['movieId','tag','tag_count_TF']]
+print('\n', TF.head(5))
+
+tag_distinct = tags[['tag', 'movieId']].drop_duplicates()
+# print('\n', tag_distinct.head(5))
+DF = tag_distinct.groupby(['tag'], as_index = False, sort= False).count()\
+        .rename(columns = {'movieId': 'tag_count_DF'})[['tag', 'tag_count_DF']]
+print('\n', DF.head(5))
