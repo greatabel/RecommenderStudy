@@ -24,4 +24,8 @@ DF = tag_distinct.groupby(['tag'], as_index = False, sort= False).count()\
 print('\n', DF.head(5))
 
 a = math.log10(len(np.unique(tags['movieId'])))
-print('a=', a)
+print('\na=', a)
+DF['IDF'] = a - np.log10(DF['tag_count_DF'])
+TF = pd.merge(TF, DF, on = 'tag', how = 'left', sort = False)
+TF['TF-IDF'] = TF['tag_count_TF']*TF['IDF']
+print(TF.head(5))
