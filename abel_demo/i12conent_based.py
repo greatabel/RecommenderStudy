@@ -1,5 +1,6 @@
 import  pandas as pd
 import  numpy as np
+import math
 
 
 from termcolor import colored
@@ -21,3 +22,6 @@ tag_distinct = tags[['tag', 'movieId']].drop_duplicates()
 DF = tag_distinct.groupby(['tag'], as_index = False, sort= False).count()\
         .rename(columns = {'movieId': 'tag_count_DF'})[['tag', 'tag_count_DF']]
 print('\n', DF.head(5))
+
+a = math.log10(len(np.unique(tags['movieId'])))
+print('a=', a)
