@@ -13,7 +13,28 @@ def train():
     start = time.time()
     ds = pd.read_csv(data_source)
     print("Training data ingested in %s seconds." % (time.time() - start))
+    
+    """
+    Train the engine.
 
+    Create a TF-IDF matrix of unigrams, bigrams, and trigrams
+    for each product. The 'stop_words' param tells the TF-IDF
+    module to ignore common english words like 'the', etc.
+
+    Then we compute similarity between all products using
+    SciKit Leanr's linear_kernel (which in this case is
+    equivalent to cosine similarity).
+
+    Iterate through each item's similar items and store the
+    100 most-similar. Stops at 100 because well...  how many
+    similar products do you really need to show?
+
+    Similarities and their scores are stored in redis as a
+    Sorted Set, with one set for each item.
+
+    :param ds: A pandas dataset containing two fields: description & id
+    :return: Nothin!
+    """
     tf = TfidfVectorizer(analyzer='word',
                              ngram_range=(1, 3),
                              min_df=0,
