@@ -18,10 +18,15 @@ def main():
     args = parse_args()
     print('args:', args.d, args.s, args.m)
     data = np.load(args.d)
-    print(data, data.shape)
+    print(data, data.shape, type(data))
+    # generate small dataset for rapid test
+    # np.save('small_user_movie_rating.npy', data[0:10000])
 
 
 
 if __name__ == "__main__":
     main()
+    # real test
     # python3 main.py -d /Users/abel/Downloads/spare_time/b6784_900_recommand_doing/user_movie_rating.npy  -s 2020 -m js
+    # small test
+    # python3 main.py -d small_user_movie_rating.npy  -s 2020 -m js
