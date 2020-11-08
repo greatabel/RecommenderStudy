@@ -1,5 +1,8 @@
 import numpy as np
 import argparse
+import i1jaccard
+import i2cosine
+import i3discrete_cosine
 
 
 def parse_args():
@@ -21,8 +24,12 @@ def main():
     print(data, data.shape, type(data))
     # generate small dataset for rapid test
     # np.save('small_user_movie_rating.npy', data[0:10000])
-    
-
+    if args.m == 'js':
+        i1jaccard.jaccard(data, args.s)
+    elif args.m == 'cs':
+        i2cosine.cosine(data, args.s)
+    elif args.m == 'dcs':
+        i3discrete_cosine.discrete_cosine(data, args.s)
 
 
 if __name__ == "__main__":
