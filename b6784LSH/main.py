@@ -39,3 +39,4 @@ if __name__ == "__main__":
 
     # small test, just for rapid prototype
     # python3 main.py -d small_user_movie_rating.npy  -s 2020 -m js
+    # python3 main.py -d small_user_movie_rating.npy  -s 2020 -m cs
