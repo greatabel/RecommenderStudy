@@ -1,0 +1,90 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# saved results
+content_r = [
+    "Sick",
+    "Eat It",
+    "I Cain't Say No",
+    "Poppies",
+    "Older Gods",
+    "Most Of Us",
+    "I Don't Wanna Work",
+    "Sifting",
+    "The Tin Man",
+    "I Don't Know Why",
+]
+cf_r = [
+    "Nine Million Bicycles",
+    "If You Were A Sailboat",
+    "Shy Boy",
+    "I Cried For You",
+    "Spider's Web",
+    "Piece By Piece",
+    "On The Road Again",
+    "Blues In The Night",
+    "Blue Shoes",
+    "Thank You Stars",
+]
+
+content_target = [
+    "Sick",
+    "Eat It",
+    "I Cain't Say No",
+    "Poppies",
+    "Older Gods",
+    "Most Of Us",
+    "I Don't Wanna Work",
+    "Sifting",
+    "Yesterday Once More",
+    "Love Story",
+]
+cf_target = [
+    "Thank U, Next",
+    "If You Were A Sailboat",
+    "Shy Boy",
+    "I Cried For You",
+    "Spider's Web",
+    "Piece By Piece",
+    "On The Road Again",
+    "Blues In The Night",
+    "Blue Shoes",
+    "Thank You Stars",
+]
+
+
+r1 = 0
+for item in content_r:
+    if item in content_target:
+        r1 += 1
+accuracy11 = r1 / len(content_r)
+print(accuracy11)
+
+
+r2 = 0
+for item in cf_r:
+    if item in cf_target:
+        r2 += 1
+accuracy22 = r2 / len(content_r)
+print(accuracy22)
+
+
+weights = [x * 0.1 for x in range(0, 10)]
+print("weights=\n", weights)
+
+# my distribute weight between content recommend and collaborate filter
+
+combines_accuracy = [
+    accuracy11 * ((w - 0.5) ** 2) + accuracy22 * (1 - (w - 0.5) ** 2) for w in weights
+]
+print("combines_accuracy=\n", combines_accuracy)
+
+
+plt.scatter(weights, combines_accuracy)
+plt.plot(weights, combines_accuracy)
+
+plt.xlabel("weights of distribute of content and collabfilter")
+plt.ylabel("accuracy")
+
+plt.show()
