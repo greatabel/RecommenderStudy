@@ -1,0 +1,7 @@
+tensorflow
+numpy
+scipy
+pandas
+Pillow
+pytest
+requests
