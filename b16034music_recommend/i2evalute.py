@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 
 # saved results
+# i0 和 i1的实验结果和预设值
 content_r = [
     "Sick",
     "Eat It",

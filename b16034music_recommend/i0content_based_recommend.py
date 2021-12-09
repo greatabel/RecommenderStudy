@@ -5,6 +5,16 @@ from typing import List, Dict
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+'''
+你看第一个机遇内容的推荐，
+我们使用的song_data.csv  ，基本5.7w条数据。
+我们基本是机遇用户以前听过什么，然后根据内容相似程度，推荐差不多的歌，让用户继续听。这个和其他的用户行为旧没有关系。
+比如以前听过范特西，我们可以推荐双节棍啊。准确的说是机遇内容的相似程度。
+内容的相似程度怎么衡量呢，我们是把内容根据term frequency–inverse document frequency拆分成词语和评论，
+具体可以参考（https://zhuanlan.zhihu.com/p/31197209）
+然后我们根据这些的相似程度，做内容相似比较，大的等词语和频率变成归一化数组后，我们对于我们的歌推荐系统，
+我们将使用余弦相似性或者其他的明氏距离算相似度，找到最高的，作为内容推荐的依据。
+'''
 
 class ContentBasedMusicRecommender:
     def __init__(self, matrix):
@@ -34,7 +44,7 @@ class ContentBasedMusicRecommender:
         # print each item
         self._print_message(song=song, recom_song=recom_song)
 
-
+# 读取歌曲数据集
 songs = pd.read_csv("data/songdata.csv")
 print(songs.head())
 
@@ -42,13 +52,16 @@ print(len(songs), " is the count")
 
 
 songs = songs.sample(n=5000).drop("link", axis=1).reset_index(drop=True)
+
+# term frequency–inverse document frequency拆分成词语和频率
 tfidf = TfidfVectorizer(analyzer="word", stop_words="english")
 
 lyrics_matrix = tfidf.fit_transform(songs["text"])
+# 计算词语和频率的余弦距离，根据这个度量他们的相似度
 cosine_similarities = cosine_similarity(lyrics_matrix)
 similarities = {}
 
-
+# 根据最近余弦距离获得对应的歌曲索引，然后找到歌曲的作者和内容，准备好预处理
 for i in range(len(cosine_similarities)):
     # Now we'll sort each element in cosine_similarities and get the indexes of the songs.
     similar_indices = cosine_similarities[i].argsort()[:-50:-1]
@@ -61,7 +74,7 @@ for i in range(len(cosine_similarities)):
 
 print("-" * 20)
 recommedations = ContentBasedMusicRecommender(similarities)
-
+# 找到top10的选项，基于内容的
 recommendation = {"song": songs["song"].iloc[10], "number_songs": 10}
 
 recommedations.recommend(recommendation)
