@@ -2,13 +2,14 @@ from sklearn.neighbors import NearestNeighbors
 from fuzzywuzzy import fuzz
 import numpy as np
 
-'''
+"""
 KNN是一种instance-based learning，属于lazy learning， 
 即它没有明显的前期训练过程，而是程序开始运行时，把数据集加载到内存后，就可以直接开始分类。
 其中，每次判断一个未知的样本点时，就在该样本点附近找K个最近的点进行投票，这就是KNN中K的意义，通常K是不大于20的整数
 
 用于协同过滤
-'''
+"""
+
 
 class Recommender:
     def __init__(self, metric, algorithm, k, data, decode_id_song):

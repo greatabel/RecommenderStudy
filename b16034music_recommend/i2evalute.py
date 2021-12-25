@@ -1,3 +1,5 @@
+import random
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -89,3 +91,25 @@ plt.xlabel("weights of distribute of content and collabfilter")
 plt.ylabel("accuracy")
 
 plt.show()
+
+# get the final recommend reuslts
+print("#" * 30)
+numbers = list(range(0, 9))
+# print('numbers=', numbers)
+results = []
+
+for i in range(5):
+    choice = random.choice(numbers)
+    print(choice)
+    c = content_r[choice]
+    if c not in results:
+        results.append(c)
+
+for i in range(5):
+    choice = random.choice(numbers)
+    print(choice)
+    c = cf_r[choice]
+    if c not in results:
+        results.append(c)
+
+print("final recommend results=", results)

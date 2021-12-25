@@ -6,14 +6,14 @@ import seaborn as sns
 from scipy.sparse import csr_matrix
 from knn_recommender import Recommender
 
-'''
+"""
 协同推荐的数据集更巨大，http://millionsongdataset.com/ 来自这里，交互数据超过200w。是依赖user和item之间的关系，
 也就是这里的用户和手停过音乐之间的关系。我们构建用户x行为的大型协同矩阵，
 song x users矩阵中的很多值都将为零。因此，我们将处理极其稀疏的数据。因为笔记本单机算力限制，
 我过了过滤器，让我们选择所有听过至少十几首首歌曲的user才进入推荐处理流程。
 然后我们使用协同算法常用的KNN。当我们使用 kNN 对歌曲进行预测时，算法将计算目标歌曲与数据集中其他歌曲之间的距离。
 然后根据他们的距离进行排名。最后将返回前 k 个最近邻歌曲作为歌曲推荐。
-'''
+"""
 
 # Read userid-songid-listen_count
 song_info = pd.read_csv("data/10000.txt", sep="\t", header=None)
@@ -81,7 +81,9 @@ collab_filter_model = Recommender(
     decode_id_song=decode_id_song,
 )
 song = "I believe in miracles"
-new_recommendations = collab_filter_model.make_recommendation(new_song=song, n_recommendations=10)
+new_recommendations = collab_filter_model.make_recommendation(
+    new_song=song, n_recommendations=10
+)
 print(f"The recommendations for {song} are:")
 print(f"{new_recommendations}")
 """

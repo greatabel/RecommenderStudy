@@ -5,7 +5,7 @@ from typing import List, Dict
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-'''
+"""
 你看第一个机遇内容的推荐，
 我们使用的song_data.csv  ，基本5.7w条数据。
 我们基本是机遇用户以前听过什么，然后根据内容相似程度，推荐差不多的歌，让用户继续听。这个和其他的用户行为旧没有关系。
@@ -14,7 +14,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 具体可以参考（https://zhuanlan.zhihu.com/p/31197209）
 然后我们根据这些的相似程度，做内容相似比较，大的等词语和频率变成归一化数组后，我们对于我们的歌推荐系统，
 我们将使用余弦相似性或者其他的明氏距离算相似度，找到最高的，作为内容推荐的依据。
-'''
+"""
+
 
 class ContentBasedMusicRecommender:
     def __init__(self, matrix):
@@ -43,6 +44,7 @@ class ContentBasedMusicRecommender:
         recom_song = self.matrix_similar[song][:number_songs]
         # print each item
         self._print_message(song=song, recom_song=recom_song)
+
 
 # 读取歌曲数据集
 songs = pd.read_csv("data/songdata.csv")
