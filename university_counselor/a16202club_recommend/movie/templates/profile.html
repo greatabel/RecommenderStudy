@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Movie-Recommandation machine learning</title>
+    <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="/static/mystyle.css" media="screen" />
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+#tbl_div div {
+  visibility:hidden;
+    display:none;
+}
+
+div[name*="title"] {
+/*  background: #ffff00;*/
+  font-weight: bold;
+  font-size: 150%;
+  text-align: center;
+}
+
+div[class*="release_year"] {
+/*  background: #ffff00;*/
+  color:blue;
+  font-weight: bold;
+  font-size: 90%;
+  text-align: center;
+}
+
+
+
+    </style>
+  </head>
+ 
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" 
+  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home/1">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
+
+                <div class="form-group">
+                  <input type="text" name="keyword" placeholder="算法类型/数据集" class="form-control" autofocus>&nbsp;
+                </div>
+          
+              <input type="submit" value="Search" class="btn btn-success">
+        </form>
+      </li>
+
+      <li class="nav-item active">
+
+      </li>
+
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
+<!-- <div>
+
+    <h3 >(not changeable)email/phone: {{user.username}}</h3>
+    <h3>name: {{user.nickname}}</h3>
+    <h3>school class: {{user.school_class}}</h3>
+    <h3>school grade: {{user.school_grade}}</h3>
+    <p>password: {{user.password}}</p>
+    <h4>personal hobby: {{ user.personal_hobby}} </h4>
+    <br/>
+    <a href="/profiles/update/{{user.id}}" id="{{user.id}}">更新</a>
+
+</div> -->
+
+
+
+<!-- 先引入jquery，下面要用到-->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!--发送ajax请求删除课程 -->
+<script type="text/javascript">
+    $('a.btn-delete').on('click',function(evt){
+        // 通知浏览器不要执行与事件关联的默认动作
+        evt.preventDefault();
+        // 获取课程ID
+        var userid = $(this).attr('id');
+        $.ajax({
+            // 请求URL
+            url: "/profiles/" + userid,
+            // 请求方法类型
+            type: "DELETE",
+            contentType:"application/json",
+            // 删除成功响应函数
+            success:function(resp){
+                // 在当前页面打开课程列表页面
+                window.open("/profiles","_self");
+            },
+            // 删除失败响应函数
+            error:function(resp){
+                // 删除失败，给出错误提示
+                alert("删除课程失败！详情：" + resp.message);
+            }
+        })
+    });
+</script>
+
+
+<h3>    <caption>个人主页属性设置</caption></h3>
+<br/>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+<table class="table table-striped">
+    <caption></caption>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Value</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>(not changeable)email/phone:</td>
+            <td>{{user.username}}</td>
+
+        </tr>
+        <tr>
+            <td>name: </td>
+            <td>{{user.nickname}}</td>
+
+        </tr>
+        <tr>
+            <td>school class:</td>
+            <td>{{user.school_class}}</td>
+
+        </tr>
+        <tr>
+            <td>school grade: </td>
+            <td>{{user.school_grade}}</td>
+
+        </tr>
+         <tr>
+            <td>password：</td>
+            <td>{{user.password}}</td>
+
+        </tr>
+         <tr>
+            <td>introduction: </td>
+            <td>{{ user.personal_hobby}}</td>
+
+        </tr>
+          <tr>
+            <td>&nbsp; </td>
+            <td>
+                 <a href="/profiles/update/{{user.id}}" id="{{user.id}}">更新</a>
+
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+
+
+      <hr>
+
+      <footer>
+        <br/><br/>
+        <p>&copy; 小荷才露尖尖角 2021</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/jquery-3.5.1.min.js"></script>
+<script src="/static/bootstrap-4.5.2-dist/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
