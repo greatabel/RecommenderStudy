@@ -3,21 +3,24 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+from i0content_based_recommend import recommend_songs
 # saved results
 # i0 和 i1的实验结果和预设值
-content_r = [
-    "Sick",
-    "Eat It",
-    "I Cain't Say No",
-    "Poppies",
-    "Older Gods",
-    "Most Of Us",
-    "I Don't Wanna Work",
-    "Sifting",
-    "The Tin Man",
-    "I Don't Know Why",
-]
+# content_r = [
+#     "Sick",
+#     "Eat It",
+#     "I Cain't Say No",
+#     "Poppies",
+#     "Older Gods",
+#     "Most Of Us",
+#     "I Don't Wanna Work",
+#     "Sifting",
+#     "The Tin Man",
+#     "I Don't Know Why",
+# ]
+content_r = recommend_songs
+# print(content_r, '@'*10, type(content_r))
+
 cf_r = [
     "Nine Million Bicycles",
     "If You Were A Sailboat",
@@ -30,7 +33,7 @@ cf_r = [
     "Blue Shoes",
     "Thank You Stars",
 ]
-
+# print(cf_r, type(cf_r))
 content_target = [
     "Sick",
     "Eat It",

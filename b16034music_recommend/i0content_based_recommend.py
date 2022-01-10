@@ -34,6 +34,7 @@ class ContentBasedMusicRecommender:
             print("--------------------")
 
         print(mysongs)
+        return mysongs
 
     def recommend(self, recommendation):
         # Get song to find recommendations for
@@ -43,7 +44,8 @@ class ContentBasedMusicRecommender:
         # Get the number of songs most similars from matrix similarities
         recom_song = self.matrix_similar[song][:number_songs]
         # print each item
-        self._print_message(song=song, recom_song=recom_song)
+        return self._print_message(song=song, recom_song=recom_song)
+
 
 
 # 读取歌曲数据集
@@ -79,8 +81,9 @@ recommedations = ContentBasedMusicRecommender(similarities)
 # 找到top10的选项，基于内容的
 recommendation = {"song": songs["song"].iloc[10], "number_songs": 10}
 
-recommedations.recommend(recommendation)
-print(recommendation)
+
+# print(recommendation)
+recommend_songs = recommedations.recommend(recommendation)
 """
 ['Sick', 'Eat It', "I Cain't Say No", 'Poppies', 'Older Gods', 'Most Of Us', "I Don't Wanna Work", 'Sifting', 'The Tin Man', "I Don't Know Why"]
 """
