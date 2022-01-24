@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-
+university_counselor/b16034music_recommend/data/*
 */data/*.csv
 */data/*.txt
 *.DS_Store
