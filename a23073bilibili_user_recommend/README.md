@@ -22,8 +22,8 @@ python3 i1wsgi.py
 
 6.
 浏览器访问：
-
 http://localhost:5000/home
+使用 实时版本（可以实时从b站获取数据进行推荐）
 
 已经注册好的管理员账号 可以直接登录：
 管理员1
@@ -31,6 +31,12 @@ username: greatabel1@126.com
 password: abel
 你也可以自己注册和登录
 
+
+运行离线轻量版：
+进入 light_version 文件夹
+streamlit run bilibili_recommend_streamlit.py
+浏览器访问：
+http://localhost:8501/
 
 -------------------
 一般用户测试账号:(geust_test)
