@@ -79,10 +79,14 @@ div[class*="release_year"] {
       </li>
 
       <li class="nav-item active">
+        <a class="nav-link" href="http://localhost:8501/"> 离线版 <span class="sr-only">(current)</span></a>
+      </li>
+
+        {% if session['logged_in'] %}
+
+      <li class="nav-item active">
         <a class="nav-link" href="/add_ppt"> 添加文档/多媒体 <span class="sr-only">(current)</span></a>
       </li>
-        {% if session['isadmin'] %}
-
 
 <!--       <li class="nav-item active">
         <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
@@ -104,7 +108,7 @@ div[class*="release_year"] {
         <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
 
                 <div class="form-group">
-                  <input type="text" name="keyword" id="keyword" placeholder="输入b站uid搜索" class="form-control" autofocus>&nbsp;
+                  <input type="text" name="keyword" id="keyword" placeholder="输入b站uid实时搜索" class="form-control" autofocus>&nbsp;
                 </div>
             &nbsp;&nbsp;
               <input type="submit" value=" 开始搜索 " id="btnSearch" class="btn btn-success">
@@ -180,9 +184,9 @@ div[class*="release_year"] {
          <div class="col-md-3">  </div>
          <div class="col-md-3">  </div>
          <div class="col-md-3">  
-          <a href="/recommend"><font color="red">学习材料推荐系统 </font> </a>
+       <!--    <a href="/recommend"><font color="red">学习材料推荐系统 </font> </a> -->
           </div>
-         <div class="col-md-3">  <a href="/index_a"><font color="green">  知识图谱 </font> </a> </div>
+ <!--         <div class="col-md-3">  <a href="/index_a"><font color="green">  知识图谱 </font> </a> </div> -->
 
          </div>
        </div>
@@ -195,16 +199,16 @@ div[class*="release_year"] {
         <div class="col-md-8">
         <span>{{ r.title|safe }}</span> 
         <br/>
-        <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
+        b站下载的数据：<a href="/file/download/data_{{r.title}}.json">{{ r.text[:500]|safe  }}.json </a>
+        <br/>
+        b站profile：<a href="https://space.bilibili.com/{{r.title}}/dynamic">{{ r.text[:500]|safe  }} profile-url </a>
 
             <div name="title"> </div>  
             <br/>
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
         </div>
         <div class="col-md-3">
-        <figure>
-            <img src="/static/images/ppt_cover/{{ r.id % 5 }}.png" class="img-fluid" style="height:150px;width:200px;">
-        </figure>
+
         </div>
         </div>
            {% endfor %}
@@ -349,10 +353,26 @@ $( document ).ready(function() {
    $("#btnSearch").click(function(){
            var search_txt = $('#keyword').val();
           if(search_txt !== null && search_txt !== '') {
-             // do something
-             // alert(search_txt);
 
-             // $("body").textSearch(search_txt);
+                    $.ajax({
+            // 请求URL
+            url: "/download_data_from_bili/" + search_txt,
+            // 请求方法类型
+            type: "GET",
+            contentType:"application/json",
+            // 删除成功响应函数
+            success:function(resp){
+                // 在当前页面打开课程列表页面
+                // window.open("/file/list","_self");
+            },
+            // 删除失败响应函数
+            error:function(resp){
+                // 删除失败，给出错误提示
+                alert("download doc fail！详情：" + resp.message);
+            }
+        })
+
+
           }
     }); 
 

@@ -29,6 +29,10 @@ import logging
 
 import recommandation
 
+from functools import wraps
+import asyncio
+from getDynamics import main
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -39,13 +43,15 @@ app.secret_key = "ABCabc123"
 app.debug = True
 
 
-handler = logging.FileHandler('flask.log', encoding='UTF-8')
-handler.setLevel(logging.DEBUG) # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
+handler = logging.FileHandler("flask.log", encoding="UTF-8")
+handler.setLevel(
+    logging.DEBUG
+)  # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
 logging_format = logging.Formatter(
-    '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+    "%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s"
+)
 handler.setFormatter(logging_format)
 app.logger.addHandler(handler)
-
 
 
 CORS(app)
@@ -78,13 +84,16 @@ class User(db.Model):
     school_class = db.Column(db.String(80))
     school_grade = db.Column(db.String(80))
 
-    def __init__(self, username, password, nickname='',role='',school_class='',school_grade=''):
+    def __init__(
+        self, username, password, nickname="", role="", school_class="", school_grade=""
+    ):
         self.username = username
         self.password = password
         self.nickname = nickname
         self.role = role
         self.school_class = school_class
         self.school_grade = school_grade
+
 
 class Blog(db.Model):
     """
@@ -104,8 +113,6 @@ class Blog(db.Model):
         """
         self.title = title
         self.text = text
-
-
 
 
 ### -------------start of home
@@ -139,11 +146,26 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
+def async_action(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        return asyncio.run(f(*args, **kwargs))
+
+    return wrapped
+
+
+@app.route("/download_data_from_bili/<int:userid>")
+@async_action
+async def download_data_from_bili(userid=1):
+    await main(str(userid))
+    return "Hello world !"
+
+
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
     print("home " * 10)
-    app.logger.info('home info log')
+    app.logger.info("home info log")
 
     blogs = Blog.query.all()
     user = None
@@ -157,17 +179,20 @@ def home(pagenum=1):
         keyword = request.form["keyword"]
         print("keyword=", keyword, "-" * 10)
         if keyword is not None:
-            for blog in blogs:
-                if keyword in blog.title or keyword in blog.text:
-                    blog.title = replace_html_tag(blog.title, keyword)
-                    print(blog.title)
-                    blog.text = replace_html_tag(blog.text, keyword)
+            # for blog in blogs:
+            #     if keyword in blog.title or keyword in blog.text:
+            #         blog.title = replace_html_tag(blog.title, keyword)
+            #         print(blog.title)
+            #         blog.text = replace_html_tag(blog.text, keyword)
 
-                    search_list.append(blog)
+            #         search_list.append(blog)
 
-            if len(search_list) == 0 and keyword in ["天气", "心情"]:
-                es_content = es_search.mysearch(keyword)
-                search_list.append(es_content)
+            # if len(search_list) == 0 and keyword in ["天气", "心情"]:
+            #     es_content = es_search.mysearch(keyword)
+            #     search_list.append(es_content)
+            if len(search_list) == 0 :
+                # 开始下载
+                search_list.append(Blog(title=keyword, text=keyword))
             # for movie in notice_list:
             #     if movie.director.director_full_name == keyword:
             #         search_list.append(movie)
@@ -274,7 +299,7 @@ def list_users():
     查询用户列表
     """
     users = User.query.all()
-    print('users=', users)
+    print("users=", users)
     # 渲染ppt列表页面目标文件，传入blogs参数
     return rt("list_users.html", users=users)
 
@@ -297,13 +322,20 @@ def create_user():
         school_class = request.form["school_class"]
 
         # 创建一个ppt对象
-        user = User(username=username, nickname=nickname,password=password,role=role,school_grade=school_grade,
-            school_class=school_class)
+        user = User(
+            username=username,
+            nickname=nickname,
+            password=password,
+            role=role,
+            school_grade=school_grade,
+            school_class=school_class,
+        )
         db.session.add(user)
         # 必须提交才能生效
         db.session.commit()
         # 创建完成之后重定向到ppt列表页面
         return redirect("/users")
+
 
 @app.route("/users/<id>", methods=["GET", "DELETE"])
 def query_user(id):
@@ -317,7 +349,7 @@ def query_user(id):
         # 渲染ppt详情页面
         return rt("query_user.html", user=user)
     else:
-        print('delete user')
+        print("delete user")
         # 删除ppt
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
@@ -340,11 +372,10 @@ def recommend():
 
         # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
         blogs = Blog.query.all()
-        r_index = random.randint(0, len(blogs)-1)
+        r_index = random.randint(0, len(blogs) - 1)
         cold_r = blogs[r_index].title
 
-        
-        print(cold_r, '#####in cold start')
+        print(cold_r, "#####in cold start")
         choosed.append(cold_r)
         return rt("recommend.html", choosed=choosed)
 
@@ -448,6 +479,7 @@ user_pass = {}
 def relationship():
     # static/data/test_data.json
     filename = os.path.join(app.static_folder, "data.json")
+    print("statistics>>>", filename)
     # with open(filename) as test_file:
     with open(filename, "r", encoding="utf-8") as test_file:
         d = json.load(test_file)
@@ -517,7 +549,7 @@ def register():
     # if email in user_pass:
     if data is not None:
         print("already existed user")
-        flash('already existed user')
+        flash("already existed user")
         return redirect(url_for("home", pagenum=1))
     # salt = PH.get_salt()
     # hashed = PH.get_hash(pw1 + salt)
