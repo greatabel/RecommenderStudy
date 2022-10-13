@@ -27,16 +27,35 @@ import es_search
 import logging
 
 
-import recommandation
+# import recommandation
 
 from functools import wraps
 import asyncio
 from getDynamics import main
 
+from i4extract_method_preprocess import get_recommend
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
 # from common import set_js_file
+
+
+def read_json(json_file):
+    """定义一个读取json等方法, 返回title"""
+    with open(json_file, "rt", encoding="utf-8") as f:
+        text = f.read()
+
+        # 如果文件是空的，返回none
+        if len(text) < 300:
+            return None
+        else:
+            if not text.endswith("]"):
+                text = text + "]"
+            # 解析内容
+            dic_list = eval(text.replace(",,", ","))
+            return dic_list
+
 
 app = create_app()
 app.secret_key = "ABCabc123"
@@ -190,9 +209,29 @@ def home(pagenum=1):
             # if len(search_list) == 0 and keyword in ["天气", "心情"]:
             #     es_content = es_search.mysearch(keyword)
             #     search_list.append(es_content)
-            if len(search_list) == 0 :
+            if len(search_list) == 0:
                 # 开始下载
                 search_list.append(Blog(title=keyword, text=keyword))
+                dic_list = read_json("upload/data_" + keyword + ".json")
+                # print(dic_list)
+                if dic_list is not None:
+                    contents = []
+                    # 提取最新50条
+                    num = 50
+                    for content in dic_list[
+                        : num if len(dic_list) > num else len(dic_list)
+                    ]:
+                        print("content=", content)
+                        # 提取内容
+                        c = content.get("item").get("content")
+                        if c != "" and c is not None and c not in ["转发动态", "分享动态"]:
+                            # print(c)
+                            contents.append(c)
+                    print(">" * 20, contents)
+                    results = get_recommend(contents)
+                    for t in results:
+                        search_list.append(Blog(title=str(t), text=str(t)))
+                print("#-" * 10)
             # for movie in notice_list:
             #     if movie.director.director_full_name == keyword:
             #         search_list.append(movie)
@@ -359,25 +398,25 @@ def query_user(id):
 
 
 ### -------------end of home
-@app.route("/recommend", methods=["GET", "DELETE"])
-def recommend():
-    """
-    查询cousre item 推荐
-    """
-    if request.method == "GET":
-        choosed = recommandation.main()
-        print("给予离线交互数据进行协同推荐")
-        print(choosed, "#" * 20)
-        print("给予离线交互数据进行协同推荐")
+# @app.route("/recommend", methods=["GET", "DELETE"])
+# def recommend():
+#     """
+#     查询cousre item 推荐
+#     """
+#     if request.method == "GET":
+#         choosed = recommandation.main()
+#         print("给予离线交互数据进行协同推荐")
+#         print(choosed, "#" * 20)
+#         print("给予离线交互数据进行协同推荐")
 
-        # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
-        blogs = Blog.query.all()
-        r_index = random.randint(0, len(blogs) - 1)
-        cold_r = blogs[r_index].title
+#         # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
+#         blogs = Blog.query.all()
+#         r_index = random.randint(0, len(blogs) - 1)
+#         cold_r = blogs[r_index].title
 
-        print(cold_r, "#####in cold start")
-        choosed.append(cold_r)
-        return rt("recommend.html", choosed=choosed)
+#         print(cold_r, "#####in cold start")
+#         choosed.append(cold_r)
+#         return rt("recommend.html", choosed=choosed)
 
 
 ### -------------start of profile
