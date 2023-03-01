@@ -18,6 +18,9 @@ pip install --upgrade -r requirements.txt
 模拟运行在:
 python3 i1wsgi.py
 
+新开一个cmd：
+jupyter notebook i2music_spark.ipynb
+
 
 
 6.
@@ -46,9 +49,6 @@ password: test
 
 
 8.
-（可选，不是必须做的）
-自己训练文本主题和文本主题关系可以单组在cmd运行：
-python3 i3topic_analysis.py
 
 
 

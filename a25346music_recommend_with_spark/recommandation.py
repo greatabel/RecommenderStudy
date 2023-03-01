@@ -4,7 +4,6 @@ import csv
 import pandas as pd
 
 
-
 def recommend(demo, ratings, pivot_ratings):
 
     missing_films = list(pivot_ratings[pivot_ratings[demo].isnull()].index)
@@ -29,11 +28,11 @@ def recommend(demo, ratings, pivot_ratings):
     print("该用户我推荐：", list(rec.index))
 
 
-def main(demo='Abel'):
+def main(demo="Abel"):
     print("main", demo)
     data_path = os.path.join("app", "home")
 
-    mypath = "data/Elearning_rating.csv"
+    mypath = "data/music_rating.csv"
     print(mypath)
     ratings = pd.read_csv(mypath)
 
@@ -53,7 +52,7 @@ def main(demo='Abel'):
     # print(colored('2. 找出该用户已打分的平均分=>', 'red', attrs=['reverse', 'blink']))
 
     mean_score = pivot_ratings[demo].mean()
-    print('mean_score=',mean_score)
+    print("mean_score=", mean_score)
     # print(colored('3. 处理原始表，加上相似性列，筛选出未打分 =>',
     #               'red', attrs=['reverse', 'blink']))
     remain_films = ratings[ratings["title"].isin(missing_films)]
@@ -68,7 +67,7 @@ def main(demo='Abel'):
         lambda s: s.sim_rating.sum() / s.similarity.sum()
     )
 
-    print(rec)
-    rec = rec[rec >= mean_score]
+    print(rec, "mean_score=", mean_score)
+    rec = rec[rec >= mean_score - 1]
     print("该用户我推荐：", list(rec.index))
     return list(rec.index)
