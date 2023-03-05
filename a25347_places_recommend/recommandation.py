@@ -32,7 +32,7 @@ def main(demo="Abel"):
     print("main", demo)
     data_path = os.path.join("app", "home")
 
-    mypath = "data/music_rating.csv"
+    mypath = "data/place_rating.csv"
     print(mypath)
     ratings = pd.read_csv(mypath)
 
@@ -46,7 +46,7 @@ def main(demo="Abel"):
     print(sm.to_string())
     # 协同过滤推荐
     # demo = "Abel"
-    # print(colored('1. 找出该用户为打分的电影 =>', 'red', attrs=['reverse', 'blink']))
+    # print(colored('1. 找出该用户为打分的Place =>', 'red', attrs=['reverse', 'blink']))
     missing_films = list(pivot_ratings[pivot_ratings[demo].isnull()].index)
     print(missing_films)
     # print(colored('2. 找出该用户已打分的平均分=>', 'red', attrs=['reverse', 'blink']))
@@ -61,7 +61,7 @@ def main(demo="Abel"):
     remain_films["sim_rating"] = remain_films.similarity * remain_films.rating
 
     print(remain_films)
-    # print(colored('4. 汇总算出电影平均相似值 =>',
+    # print(colored('4. 汇总算出Place平均相似值 =>',
     #               'red', attrs=['reverse', 'blink']))
     rec = remain_films.groupby("title").apply(
         lambda s: s.sim_rating.sum() / s.similarity.sum()
