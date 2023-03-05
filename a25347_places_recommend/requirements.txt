@@ -1,0 +1,24 @@
+# numpy
+# matplotlib
+click
+coverage
+Flask
+html-similarity
+itsdangerous
+pandas
+pytest
+python-dotenv
+pytest-cov
+flask-wtf
+flask-cors
+Flask-Login
+flask_sqlalchemy
+requests
+
+textblob
+
+gensim
+
+#termcolor
+#pdfreader
+
