@@ -87,8 +87,8 @@ div[class*="release_year"] {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1 style="">Music-Recommandation machine learning</h1>
-        <p>You can view/search Music on our website</p>
+        <h1 style="">Place-Recommandation machine learning</h1>
+        <p>You can view/search Place on our website</p>
       </div>
     </div>
 
@@ -112,7 +112,7 @@ div[class*="release_year"] {
  <div class="col-md-12">
 
    Accoriding to data above, 
-        We recommend for current user such Music according by <span style="color:red"> <b>Collaborative Filtering Algorithm</b></span>:
+        We recommend for current user such Place according by <span style="color:red"> <b>Collaborative Filtering Algorithm</b></span>:
 
                   {% for c in choosed %}
 
@@ -138,12 +138,12 @@ div[class*="release_year"] {
              <form class="form-horizontal" action="/review" method="POST">
                    <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" name="Music_id" id="Music_id" placeholder="Music_id" class="form-control">
+                        <input type="text" name="Place_id" id="Place_id" placeholder="Place_id" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" name="Music_name" id="Music_name" placeholder="Music_name" class="form-control">
+                        <input type="text" name="Place_name" id="Place_name" placeholder="Place_name" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">

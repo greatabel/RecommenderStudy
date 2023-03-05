@@ -19,7 +19,7 @@ pip install --upgrade -r requirements.txt
 python3 i1wsgi.py
 
 新开一个cmd：
-jupyter notebook i2music_spark.ipynb
+jupyter notebook i2gps_algroithm_spark.ipynb
 
 
 
@@ -48,10 +48,6 @@ password: test
 
 
 
-8.
-
-
-
 
 
 
@@ -67,4 +63,9 @@ password: test
 估计还是会需要爬取之外找一些旅游照片数据集，数量才足够
 
 # ------ 附加 ------
+
+
+
+
+
 
