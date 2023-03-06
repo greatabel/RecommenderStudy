@@ -36,11 +36,6 @@ div[class*="release_year"] {
 
 }
 
-/* 天蓝色 */
-.navbar {
-  background-color: #87CEFA;
-}
-
 
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
@@ -55,7 +50,7 @@ div[class*="release_year"] {
 
 <body class="bg_rgba">
 
-<nav class="navbar navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" 
   data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,12 +65,7 @@ div[class*="release_year"] {
 
       <li class="nav-item active">
         <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                 <div class="form-group">
                   <input type="text" name="keyword" placeholder="input search" class="form-control" autofocus>&nbsp;
                 </div>
@@ -95,17 +85,16 @@ div[class*="release_year"] {
 </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-  <div class="container">
-    <h1 style="text-align: center;">地点推荐机器学习</h1>
-    <p style="text-align: center;">您可以在我们的网站上查看/搜索景点/名胜古迹</p>
-  </div>
-</div>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 style="">Place-Recommandation machine learning</h1>
+        <p>You can view/search Place on our website</p>
+      </div>
+    </div>
 
 
-<!-- 
     <div class="container">
-
+      <!-- Example row of columns -->
       <div class="row">
 
 
@@ -119,18 +108,8 @@ div[class*="release_year"] {
       <div class="col-md-6">
         <img src="/static/images/demo.gif" width="540" height="325"  >
       </div>
-    </div> -->
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <img src="/static/images/demo.gif" width="540" height="325" class="img-fluid rounded shadow">
-    </div>
-  </div>
-</div>
 
-
-
-<!--  <div class="col-md-12">
+ <div class="col-md-12">
 
    Accoriding to data above, 
         We recommend for current user such Place according by <span style="color:red"> <b>Collaborative Filtering Algorithm</b></span>:
@@ -143,25 +122,7 @@ div[class*="release_year"] {
 
            {% endfor %}
 
- </div> -->
-
-<div class="col-md-12 mt-5">
-  <h2>Recommendations</h2>
-  <p class="lead">Based on the data above, we recommend the following places to the current user using <span class="text-danger font-weight-bold">Collaborative Filtering Algorithm</span>:</p>
-  <div class="row">
-    {% for c in choosed %}
-    <div class="col-md-6">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">{{ c|safe }}</h5>
-
-          <!-- <a href="#" class="btn btn-primary">View Details</a> -->
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+ </div>
 
 
     

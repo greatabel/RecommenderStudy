@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>pptPlatform</title>
+    <title>地点推荐平台</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -46,6 +46,11 @@ div[class*="release_year"] {
   background-blend-mode: overlay;
 
 }
+/* 天蓝色 */
+.navbar {
+  background-color: #87CEFA;
+}
+
 
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
@@ -61,7 +66,7 @@ div[class*="release_year"] {
   </head>
 <body class="bg_rgba">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" 
   data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,61 +74,49 @@ div[class*="release_year"] {
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
+<ul class="navbar-nav mr-auto">
+  <li class="nav-item active">
+    <a class="nav-link" href="#">主页 <span class="sr-only">(current)</span></a>
+  </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="/profile"> Profile <span class="sr-only">(current)</span></a>
-      </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="/profile">个人资料 <span class="sr-only">(current)</span></a>
+  </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="/blogs/create"> Add-Topic <span class="sr-only">(current)</span></a>
-      </li>
-        {% if session['isadmin'] %}
+  <li class="nav-item active">
+    <a class="nav-link" href="/blogs/create">发表地点 <span class="sr-only">(current)</span></a>
+  </li>
+  
+  {% if session['isadmin'] %}
+    <li class="nav-item active">
+      <a class="nav-link" href="/blogs">管理地点 <span class="sr-only">(current)</span></a>
+    </li>
+  {% endif %}
 
-          <li class="nav-item active">
-        <a class="nav-link" href="/blogs"> Manage-Topic <span class="sr-only">(current)</span></a>
-      </li>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<!--       <li class="nav-item active">
-        <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
-      </li> -->
+  <li class="nav-item active">
+    <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
+      <div class="form-group">
+        <input type="text" name="keyword" id="keyword" placeholder="输入关键词搜索" class="form-control" autofocus>&nbsp;
+      </div>
+      &nbsp;&nbsp;
+      <input type="submit" value="让我们来搜索" id="btnSearch" class="btn btn-success">
+    </form>
+  </li>
 
-
-      {% endif %}
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-      <li class="nav-item active">
-        <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
-
-                <div class="form-group">
-                  <input type="text" name="keyword" id="keyword" placeholder="input keyword to search" class="form-control" autofocus>&nbsp;
-                </div>
-            &nbsp;&nbsp;
-              <input type="submit" value="let us search" id="btnSearch" class="btn btn-success">
-        </form>
-      </li>
-
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<!--            {% if session['logged_in'] %}
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  {% if session['logged_in'] %}
+    <li class="nav-item active">
+      <a class="nav-link" href="/logout">退出登录 <span class="sr-only">(current)</span></a>
+    </li>
+  {% endif %} 
+</ul>
 
 
-        <li class="nav-item active">
-         <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
-        </li>
- <!--       <li class="nav-item active">
-         <a class="nav-link" href="/review">review <span class="sr-only">(current)</span></a>
-      </li> -->
-    {% endif %} -->
-     
 
-
-    </ul>
 {% if not session['logged_in'] %}
     <form class="form-inline my-2 my-lg-0 navbar-right" action="/login" method="POST">
 
@@ -184,12 +177,16 @@ div[class*="release_year"] {
        <div class="row">
 
          <div class="col-md-3"> 
- <a href="http://localhost:8888/notebooks/i2gps_algroithm_spark.ipynb"><font color="blue">spark景点DBSCAN算法 </font> </a>
+
+
+ <a href="http://localhost:8888/notebooks/i2gps_algroithm_spark.ipynb" style="color: yelllow; font-weight: bold; text-decoration: underline;">spark景点DBSCAN算法</a>
+
           </div>
          <div class="col-md-3">  </div>
 
          <div class="col-md-3">  
-          <a href="/recommend"><font color="red">Place Recommendation </font> </a>
+          <a href="/recommend" style="color: red; font-weight: bold; text-decoration: underline;">Place Recommendation</a>
+
           </div>
 
          <div class="col-md-3"> 
@@ -199,7 +196,7 @@ div[class*="release_year"] {
          </div>
        </div>
           
-
+<!-- 
           {% for r in listing %}
       <div class="row">
         <div class="col-md-1">
@@ -211,7 +208,7 @@ div[class*="release_year"] {
 
             <div name="title"> </div>  
             <br/>
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+
         </div>
         <div class="col-md-3">
         <figure>
@@ -220,7 +217,32 @@ div[class*="release_year"] {
         </div>
         </div>
            {% endfor %}
-        
+         -->
+<div class="row">
+  {% for r in listing %}
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ r.title|safe }}</h5>
+            <p class="card-text">{{ r.text[:500]|safe }} ...</p>
+          </div>
+          <a href="/blogs/{{r.id}}">
+            <img src="/static/images/ppt_cover/{{ r.id % 10 }}.jpeg" class="card-img-bottom img-fluid" style="width: 100%; height: auto;">
+          </a>
+          <!-- adjust width of image as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+
+
 <br/><br/>
 <br/><br/>
 <br/><br/>

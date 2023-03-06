@@ -148,7 +148,7 @@ def replace_html_tag(text, word):
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=3):
+    def __init__(self, data, page=1, number=4):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
