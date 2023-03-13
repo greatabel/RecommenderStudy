@@ -79,3 +79,8 @@ def main(demo='Abel'):
     rec = rec[rec >= mean_score]
     print("该用户我推荐：", list(rec.index))
     return list(rec.index)
+
+
+
+if __name__ == "__main__":
+    main()
