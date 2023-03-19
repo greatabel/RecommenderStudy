@@ -50,16 +50,16 @@ def plot_similarity_matrix(pivot_ratings):
 
 def main(user='Abel'):
     data_path = os.path.join("app", "home")
-    ratings = pd.read_csv("data/jobs_rating.csv")
-    plot_ratings_distribution(ratings)
+    ratings = pd.read_csv("data/Elearning_rating.csv")
+    # plot_ratings_distribution(ratings)
     pivot_ratings = ratings.pivot_table(columns="critic", index="title", values="rating")
-    plot_similarity_matrix(pivot_ratings)
+    # plot_similarity_matrix(pivot_ratings)
     recommended_jobs = recommend(user, ratings, pivot_ratings)
     if recommended_jobs:
         print(colored(f"Recommended jobs for {user}: {recommended_jobs}", "green"))
     else:
         print(colored(f"No recommendations found for {user}", "red"))
-
+    return recommended_jobs
 
 if __name__ == "__main__":
     main()
