@@ -1,12 +1,100 @@
-<h1>Add doc</h1>
-<!-- HTML表单 -->
-<form action="/blogs/create" method="POST">
-    <label>title：</label>
-    <input type="text" name="title">
-    <br><br>
-    <label>doc content:</label>
-    <!-- <input type="text" name="text"> -->
-    <textarea rows="4" cols="70" type="text" name="text" > </textarea>
-    <br><br>
-    <input type="submit" value="create">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add Music</title>
+
+    <link
+      rel="stylesheet"
+      href="/static/bootstrap-4.5.2-dist/css/bootstrap.min.css"
+    />
+
+    <style type="text/css">
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+      }
+
+      h1 {
+        font-weight: bold;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .form-container {
+        margin: 20px 0;
+        border: 1px solid #e5e5e5;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+      }
+
+      /* Sky blue color */
+      .navbar {
+        background-color: #87cefa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/home">Home</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/1"
+              ><span class="sr-only">(current)</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>Add Music</h1>
+      <br />
+      <div class="form-container">
+        <form action="/blogs/create" method="POST">
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" name="title" id="title" />
+          </div>
+
+          <div class="form-group">
+            <label for="text">Music Content:</label>
+            <textarea
+              rows="4"
+              cols="70"
+              class="form-control"
+              name="text"
+              id="text"
+            ></textarea>
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
