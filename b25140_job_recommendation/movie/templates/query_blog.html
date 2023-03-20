@@ -107,12 +107,10 @@ div[class*="release_year"] {
 <br/>
 
    <figure>
-<img src="/static/images/app_data/{{blog.id // 4 }}.png" class="img-fluid" style="height:250px;width:500px;">
+<img src="/static/images/ppt_cover/{{ blog.id % 10 }}.jpg" class="card-img-bottom img-fluid" style="width: 80%; height: auto;">
         </figure>
 <br/>
-    <span>ppt 下载url:</span>
-        <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
-    <hr/>
+
 
      {% if session['isadmin'] %}
     <a href="#" class="btn-delete" id="{{blog.id}}">Delete</a>

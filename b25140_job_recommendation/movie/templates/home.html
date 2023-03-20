@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>pptPlatform</title>
+    <title>热门职位推荐平台</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -46,6 +46,19 @@ div[class*="release_year"] {
   background-blend-mode: overlay;
 
 }
+/* 天蓝色 */
+.navbar {
+  background-color: #87CEFA;
+}
+
+
+a[href="/chatgpt"] {
+  background-color: yellow;
+}
+
+
+
+
 
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
@@ -61,7 +74,7 @@ div[class*="release_year"] {
   </head>
 <body class="bg_rgba">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" 
   data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,61 +82,58 @@ div[class*="release_year"] {
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
+<ul class="navbar-nav mr-auto">
+  <li class="nav-item active">
+    <a class="nav-link" href="#">主页 <span class="sr-only">(current)</span></a>
+  </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="/profile"> Profile <span class="sr-only">(current)</span></a>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" href="/add_ppt"> Add-Course <span class="sr-only">(current)</span></a>
-      </li>
-        {% if session['isadmin'] %}
-
-          <li class="nav-item active">
-        <a class="nav-link" href="/blogs"> Manage-Course <span class="sr-only">(current)</span></a>
-      </li>
-
-<!--       <li class="nav-item active">
-        <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
-      </li> -->
+  <li class="nav-item active">
+    <a class="nav-link" href="/profile">个人资料 <span class="sr-only">(current)</span></a>
+  </li>
 
 
-      {% endif %}
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  {% if session['isadmin'] %}
 
-      <li class="nav-item active">
-        <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
+    <li class="nav-item active">
+    <a class="nav-link" href="/blogs/create">发表热门职位 <span class="sr-only">(current)</span></a>
+  </li>
 
-                <div class="form-group">
-                  <input type="text" name="keyword" id="keyword" placeholder="input keyword to search" class="form-control" autofocus>&nbsp;
-                </div>
-            &nbsp;&nbsp;
-              <input type="submit" value="let us search" id="btnSearch" class="btn btn-success">
-        </form>
-      </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/blogs">管理热门职位 <span class="sr-only">(current)</span></a>
+    </li>
+  {% endif %}
 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<!--            {% if session['logged_in'] %}
+    <li class="nav-item active" style="margin-right: 20px;">
+      <a class="nav-link" href="/recommend">
+  <strong><span style="color: red;">recommand</span></strong>
+  <span class="sr-only">(current)</span>
+</a>
 
 
-        <li class="nav-item active">
-         <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
-        </li>
- <!--       <li class="nav-item active">
-         <a class="nav-link" href="/review">review <span class="sr-only">(current)</span></a>
-      </li> -->
-    {% endif %} -->
-     
+    </li>
 
 
-    </ul>
+  <li class="nav-item active" id="searchLi">
+    <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
+      <div class="form-group">
+        <input type="text" name="keyword" id="keyword" placeholder="输入关键词" class="form-control" autofocus>&nbsp;
+      </div>
+      &nbsp;&nbsp;
+      <input type="submit" value="搜索" id="btnSearch" class="btn btn-success">
+    </form>
+  </li>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  {% if session['logged_in'] %}
+    <li class="nav-item active">
+      <a class="nav-link" href="/logout">退出登录 <span class="sr-only">(current)</span></a>
+    </li>
+  {% endif %} 
+</ul>
+
+
+
 {% if not session['logged_in'] %}
     <form class="form-inline my-2 my-lg-0 navbar-right" action="/login" method="POST">
 
@@ -150,23 +160,24 @@ div[class*="release_year"] {
 
 
 <div class="media">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <div class="media-left">
-        <h1 class="media-heading">Elearning</h1>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+    <div class="media-left">
+        <h1 class="media-heading" style="text-align: center;">professional Job </h1>
     </div>
     <span class="media-left">
-        <img src="/static/images/company.png" style="height:73px;width:74px;">
+        <span class="media-left">
+            <img src="/static/images/company.png" style="height:73px;width:74px; background-color: transparent; opacity: 0.7;">
+        </span>
     </span>
     <div class="media-body">
-        <h1 class="media-heading">Platform</h1>
-
+        <h1 class="media-heading">Recommend</h1>
     </div>
 </div>
+
 
 
 
@@ -182,18 +193,30 @@ div[class*="release_year"] {
        </div>
 
        <div class="row">
-         <div class="col-md-3">  </div>
-         <div class="col-md-3">  </div>
-         <div class="col-md-3">  </div>
-         <div class="col-md-3">  
-          <a href="/recommend"><font color="red">course Recommendation </font> </a>
+
+         <div class="col-md-3"> 
+
+
+ <!-- <a href="http://localhost:8888/notebooks/i2gps_algroithm_spark.ipynb" style="color: yelllow; font-weight: bold; text-decoration: underline;">spark算法</a> -->
+
           </div>
-         <div class="col-md-3">  <a href="/index_a"><font color="green">  Knowledge-Graph </font> </a> </div>
+         <div class="col-md-3">  </div>
+
+         <div class="col-md-3">  
+          <!-- <a href="/chatgpt" style="color: red; font-weight: bold; text-decoration: underline;">HX-Chatgpt</a> -->
+
+          </div>
+
+         <div class="col-md-3"> 
+          <!-- <a href="/index_a"><font color="green">  Knowledge-Graph </font> </a>  -->
+      </div>
+
+
 
          </div>
        </div>
           
-
+<!-- 
           {% for r in listing %}
       <div class="row">
         <div class="col-md-1">
@@ -205,7 +228,7 @@ div[class*="release_year"] {
 
             <div name="title"> </div>  
             <br/>
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+
         </div>
         <div class="col-md-3">
         <figure>
@@ -214,13 +237,41 @@ div[class*="release_year"] {
         </div>
         </div>
            {% endfor %}
-        
+         -->
+<div class="row">
+  {% for r in listing %}
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <h5 class="card-title">
+           <a href="/blogs/{{r.id}}">  {{ r.title|safe }} </a>
+           </h5>
+            <p class="card-text" style="margin-bottom: -130px; padding-bottom: 0;">{{ r.text[:400]|safe }} ...</p>
+          </div>
+          <a href="/blogs/{{r.id}}">
+            <img src="/static/images/ppt_cover/{{ r.id % 10 }}.jpg" class="card-img-bottom img-fluid" style="width: 100%; height: auto; margin-top: -10px;">
+          </a>
+          <!-- adjust width of image as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+
+
+
 <br/><br/>
 <br/><br/>
 <br/><br/>
 
       <div class="row">
-       <div class="col-md-12"> <div class="release_year">Elearning introduction</div>
+       <div class="col-md-12"> <div class="release_year">Topic introduction</div>
        </div>
        </div>
       <!-- Example row of columns -->
@@ -230,7 +281,9 @@ div[class*="release_year"] {
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{ r % 10 }}.png" class="img-fluid" style="height:250px;width:500px;">
+
+        <img src="/static/images/ppt_cover/slide{{ r % 10 }}.jpg" class="img-fluid" style="height:250px;width:500px;">
+
         </figure>
             <div name="title"> </div>  
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
@@ -282,7 +335,8 @@ div[class*="release_year"] {
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="submit" value="Register" class="btn btn-primary btn-block">
+                      <!-- 暂时disable 注册功能 -->
+                        <input type="submit" value="Register" class="btn btn-primary btn-block" disabled>
                     </div>
                 </div>
             </form> <!-- /form -->
@@ -299,11 +353,11 @@ div[class*="release_year"] {
             {%else%}
                 <li class="page-item"><a class="page-link" href="/home/{{listing.page-1}}">Previous</a></li>
              {%endif%}
-             {%if listing.totalpage > listing.page %}
-            <li class="page-item"><a class="page-link" href="{{listing}}">Next</a></li>
+            {%if listing.totalpage > listing.page %}
+                <li class="page-item"><a class="page-link" href="/home/{{listing.page + 1}}">Next</a></li>
             {%else%}
-            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-             {%endif%}
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            {%endif%}
 
 
           </ul>
@@ -322,7 +376,7 @@ div[class*="release_year"] {
 <br/>
 
       <footer>
-        <p>&copy; Ronny 2022</p>
+        <p>&copy; xiaolu/Abel 2023</p>
       </footer>
     </div> <!-- /container -->
 
@@ -367,6 +421,20 @@ $( document ).ready(function() {
 
 // $("body").textSearch("规范");
 });
+
+
+//图文列表设置为一样长
+
+$(window).on('load resize', function(){
+  var maxHeight = 0;
+  $('.card-text, .card-img-bottom').height('auto');
+  $('.card-text, .card-img-bottom').each(function(){
+    maxHeight = Math.max(maxHeight, $(this).height());
+  });
+  $('.card-text, .card-img-bottom').height(maxHeight-150);
+});
+
+
 
 </script>
   </body>

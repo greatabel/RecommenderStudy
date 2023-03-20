@@ -145,14 +145,14 @@ def replace_html_tag(text, word):
     return text
 
 
+
 class PageResult:
-    def __init__(self, data, page=1, number=3):
+    def __init__(self, data, page=1, number=4):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
         ]
-        self.totalpage = len(data) // number
-        print("totalpage=", self.totalpage)
+        self.totalpage = len(data) // number + (len(data) % number > 0)
 
     def __iter__(self):
         if self.page - 1 < len(self.full_listing):
@@ -163,7 +163,7 @@ class PageResult:
 
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
-
+        
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
