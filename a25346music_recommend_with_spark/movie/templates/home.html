@@ -187,11 +187,13 @@ div[class*="release_year"] {
  <a href="http://localhost:8888/notebooks/i2music_spark.ipynb"><font color="blue">spark音乐分析 </font> </a>
           </div>
          <div class="col-md-3">  </div>
-
+         {% if  session['logged_in'] %}
          <div class="col-md-3">  
           <a href="/recommend"><font color="red">Music Recommendation </font> </a>
           </div>
-
+              {% else %}
+              <div></div>
+             {% endif %}
          <div class="col-md-3"> 
           <!-- <a href="/index_a"><font color="green">  Knowledge-Graph </font> </a>  -->
       </div>
@@ -236,7 +238,7 @@ div[class*="release_year"] {
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{ r % 10 }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/app_data/{{ r % 10 }}.jpg" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
