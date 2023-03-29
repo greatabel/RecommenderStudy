@@ -3,7 +3,11 @@
 
 # In[31]:
 
-
+'''
+代码分别统计了用户来源和用户行为的分布情况，以及不同音乐下载量和播放量之间的关系，并使用 Matplotlib 库进行可视化展示。
+此外，代码还使用了 Seaborn 库来绘制热力图，展示不同用户来源和行为之间的关系。最后，代码对不同音乐的下载量和播放量进行比较，
+并结合用户来源，绘制了一个散点图来展示它们之间的关系。通过这些可视化的方式，我们可以更好地了解数据中的趋势和规律，以及不同变量之间的相互影响
+'''
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 import matplotlib.pyplot as plt

@@ -312,11 +312,15 @@ def recommend():
 
         # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
         blogs = Blog.query.all()
-        r_index = random.randint(0, len(blogs) - 1)
-        cold_r = blogs[r_index].title
+        cold_r = []
+        while len(cold_r) < 2:
+            r_index = random.randint(0, len(blogs) - 1)
+            r_blog = blogs[r_index].title
+            if r_blog not in choosed and r_blog not in cold_r:
+                cold_r.append(r_blog)
 
         print(cold_r, "#####in cold start")
-        choosed.append(cold_r)
+        choosed.extend(cold_r)
         return rt("recommend.html", choosed=choosed)
 
 

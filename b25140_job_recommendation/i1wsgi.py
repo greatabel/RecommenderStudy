@@ -32,7 +32,7 @@ import recommandation
 
 # from movie.domain.model import Director, Review, Movie
 
-# from html_similarity import style_similarity, structural_similarity, similarity
+from html_similarity import style_similarity, structural_similarity, similarity
 # from common import set_js_file
 
 app = create_app()
@@ -308,12 +308,33 @@ def recommend():
 
         # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
         blogs = Blog.query.all()
-        r_index = random.randint(0, len(blogs)-1)
-        cold_r = blogs[r_index].title
+        cold_r = []
+        while len(cold_r) < 2:
+            r_index = random.randint(0, len(blogs) - 1)
+            r_blog = blogs[r_index].title
+            if r_blog not in choosed and r_blog not in cold_r:
+                cold_r.append(r_blog)
 
+        print(cold_r, "#####in cold start")
+        choosed.extend(cold_r)
+
+        id = session["userid"]
+        user = User.query.filter_by(id=id).first_or_404()
+        print(user.username, user.school_class, "#" * 5)
+
+        blogs = Blog.query.all()
+
+        related_blogs = []
+
+        for blog in blogs:
+            if similarity(blog.title, user.school_class) > 0.5:
+                related_blogs.append(blog.title)
+
+        print("Related blogs:", related_blogs)
+        choosed.extend(related_blogs)
         
-        print(cold_r, '#####in cold start')
-        choosed.append(cold_r)
+        # remove duplicates from choosed
+        choosed = list(set(choosed))
         return rt("recommend.html", choosed=choosed)
 
 
