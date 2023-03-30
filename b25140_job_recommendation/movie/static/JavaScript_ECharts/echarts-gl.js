@@ -18715,7 +18715,7 @@ quat.normalize = __WEBPACK_IMPORTED_MODULE_2__vec4__["a" /* default */].normaliz
  * @function
  */
 quat.fromMat3 = function(out, m) {
-    // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
+    // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH job notes
     // article "Quaternion Calculus and Fast Animation".
     var fTrace = m[0] + m[4] + m[8];
     var fRoot;

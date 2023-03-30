@@ -91,21 +91,21 @@ div[class*="release_year"] {
 
 
 <div class="container">
-   <h1>Course Home Page</h1>
+   <h1>job Home Page</h1>
   <div class="row">
     <div class="col-md4">
               <figure>
-            <img src="/static/images/course.png" class="img-fluid" style="height:80px;">
+            <img src="/static/images/job.png" class="img-fluid" style="height:80px;">
         </figure>
     </div>
 
     <div class="col-md4">
            
-        <p style="width:500px;padding-left:10px;font-weight: bold;">Course Name:
+        <p style="width:500px;padding-left:10px;font-weight: bold;">job Name:
 {{ blog.title }}
         </p>
         <br/>
-        <p style="width:500px;padding-left:10px;">Course Detail: {{ blog.text }}
+        <p style="width:500px;padding-left:10px;">job Detail: {{ blog.text }}
         </p>
     </div>
 
@@ -200,21 +200,21 @@ div[class*="release_year"] {
 <!--     <script type="text/javascript" src="/static/d3/d3.js"></script>
 <script src="/static/student.js" ></script> -->
 <script type="text/javascript">
-var course_id = '{{ blog.id }}';
-console.log('course_id=', course_id);
+var job_id = '{{ blog.id }}';
+console.log('job_id=', job_id);
 function relocate_assignwork()
 {
-     location.href = "http://localhost:5000/assignwork?course_id="+course_id;
+     location.href = "http://localhost:5000/assignwork?job_id="+job_id;
 } 
 
 function relocate_student()
 {
-     location.href = "http://localhost:5000/student_index?course_id="+course_id;
+     location.href = "http://localhost:5000/student_index?job_id="+job_id;
 } 
 
 function relocate_dashboard()
 {
-     location.href = "http://localhost:5000/review?course_id="+course_id;
+     location.href = "http://localhost:5000/review?job_id="+job_id;
 } 
 </script>
 

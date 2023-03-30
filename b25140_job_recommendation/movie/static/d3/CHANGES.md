@@ -877,7 +877,7 @@ For an introduction to scales, see [Introducing d3-scale](https://medium.com/@mb
 
 Selections no longer subclass Array using [prototype chain injection](http://perfectionkills.com/how-ecmascript-5-still-does-not-allow-to-subclass-an-array/#wrappers_prototype_chain_injection); they are now plain objects, improving performance. The internal fields (*selection*.\_groups, *selection*.\_parents) are private; please use the documented public API to manipulate selections. The new [*selection*.nodes](https://github.com/d3/d3-selection/blob/master/README.md#selection_nodes) method generates an array of all nodes in a selection.
 
-Selections are now immutable: the elements and parents in a selection never change. (The elements’ attributes and content will of course still be modified!) The [*selection*.sort](https://github.com/d3/d3-selection/blob/master/README.md#selection_sort) and [*selection*.data](https://github.com/d3/d3-selection/blob/master/README.md#selection_data) methods now return new selections rather than modifying the selection in-place. In addition, [*selection*.append](https://github.com/d3/d3-selection/blob/master/README.md#selection_append) no longer merges entering nodes into the update selection; use [*selection*.merge](https://github.com/d3/d3-selection/blob/master/README.md#selection_merge) to combine enter and update after a data join. For example, the following [general update pattern](https://bl.ocks.org/mbostock/a8a5baa4c4a470cda598) in 3.x:
+Selections are now immutable: the elements and parents in a selection never change. (The elements’ attributes and content will of job still be modified!) The [*selection*.sort](https://github.com/d3/d3-selection/blob/master/README.md#selection_sort) and [*selection*.data](https://github.com/d3/d3-selection/blob/master/README.md#selection_data) methods now return new selections rather than modifying the selection in-place. In addition, [*selection*.append](https://github.com/d3/d3-selection/blob/master/README.md#selection_append) no longer merges entering nodes into the update selection; use [*selection*.merge](https://github.com/d3/d3-selection/blob/master/README.md#selection_merge) to combine enter and update after a data join. For example, the following [general update pattern](https://bl.ocks.org/mbostock/a8a5baa4c4a470cda598) in 3.x:
 
 ```js
 var circle = svg.selectAll("circle").data(data) // UPDATE
@@ -1240,7 +1240,7 @@ Likewise, in place of 3.x’s d3.time.weekOfYear, in 4.0 you would say:
 d3.timeWeek.count(d3.timeYear(now), now); // 24
 ```
 
-The new *interval*.count is of course more general. For example, you can use it to compute hour-of-week for a heatmap:
+The new *interval*.count is of job more general. For example, you can use it to compute hour-of-week for a heatmap:
 
 ```js
 d3.timeHour.count(d3.timeWeek(now), now); // 64

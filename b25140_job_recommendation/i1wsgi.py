@@ -33,6 +33,7 @@ import recommandation
 # from movie.domain.model import Director, Review, Movie
 
 from html_similarity import style_similarity, structural_similarity, similarity
+
 # from common import set_js_file
 
 app = create_app()
@@ -40,13 +41,15 @@ app.secret_key = "ABCabc123"
 app.debug = True
 
 
-handler = logging.FileHandler('flask.log', encoding='UTF-8')
-handler.setLevel(logging.DEBUG) # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
+handler = logging.FileHandler("flask.log", encoding="UTF-8")
+handler.setLevel(
+    logging.DEBUG
+)  # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
 logging_format = logging.Formatter(
-    '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+    "%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s"
+)
 handler.setFormatter(logging_format)
 app.logger.addHandler(handler)
-
 
 
 CORS(app)
@@ -59,8 +62,10 @@ CORS(app)
 
 # ---start  数据库 ---
 
-print('#'*20, os.path.abspath("movie/campus_data.db"), '#'*20)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath("movie/campus_data.db")
+print("#" * 20, os.path.abspath("movie/campus_data.db"), "#" * 20)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath(
+    "movie/campus_data.db"
+)
 
 # 防御点1: 防止入sql-inject ，不实用sql注入，sqlchemy让代码ORM化，安全执行
 db = SQLAlchemy(app)
@@ -105,34 +110,6 @@ class Blog(db.Model):
         self.text = text
 
 
-# # 老师当前布置作业的表
-# class TeacherWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(80), unique=True)
-#     detail = db.Column(db.String(500))
-#     answer = db.Column(db.String(5000))
-#     course_id = db.Column(db.Integer)
-
-#     def __init__(self, title, detail, answer, course_id):
-#         self.title = title
-#         self.detail = detail
-#         self.answer = answer
-#         self.course_id = course_id
-
-
-# class StudentWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     userid = db.Column(db.Integer)
-#     answer = db.Column(db.String(5000))
-#     score = db.Column(db.DECIMAL(10, 2))
-#     course_id = db.Column(db.Integer)
-
-#     def __init__(self, userid, answer, score, course_id):
-#         self.userid = userid
-#         self.answer = answer
-#         self.score = score
-#         self.course_id = course_id
-
 
 ### -------------start of home
 def replace_html_tag(text, word):
@@ -143,7 +120,6 @@ def replace_html_tag(text, word):
         if text[i : i + len_w] == word:
             text = text[:i] + new_word + text[i + len_w :]
     return text
-
 
 
 class PageResult:
@@ -163,13 +139,13 @@ class PageResult:
 
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
-        
+
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
     print("home " * 10)
-    app.logger.info('home info log')
+    app.logger.info("home info log")
 
     blogs = Blog.query.all()
     user = None
@@ -254,7 +230,7 @@ def list_notes():
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新cousre
+    更新job
     """
     if request.method == "GET":
         # 根据ID查询ppt详情
@@ -277,7 +253,7 @@ def update_note(id):
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询cousre详情、删除cousre
+    查询job详情、删除job
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
@@ -298,7 +274,7 @@ def query_note(id):
 @app.route("/recommend", methods=["GET", "DELETE"])
 def recommend():
     """
-    查询cousre item 推荐
+    查询job item 推荐
     """
     if request.method == "GET":
         choosed = recommandation.main()
@@ -332,7 +308,7 @@ def recommend():
 
         print("Related blogs:", related_blogs)
         choosed.extend(related_blogs)
-        
+
         # remove duplicates from choosed
         choosed = list(set(choosed))
         return rt("recommend.html", choosed=choosed)
@@ -344,7 +320,7 @@ def recommend():
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询cousre详情、删除ppt
+    查询job详情、删除ppt
     """
 
     id = session["userid"]
@@ -406,18 +382,18 @@ def update_profile(id):
 ### -------------end of profile
 
 
-@app.route("/course/<id>", methods=["GET"])
-def course_home(id):
+@app.route("/job/<id>", methods=["GET"])
+def job_home(id):
     """
     查询ppt详情、删除ppt
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
         blog = Blog.query.filter_by(id=id).first_or_404()
-        teacherWork = TeacherWork.query.filter_by(course_id=id).first()
+        teacherWork = TeacherWork.query.filter_by(job_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
         # 渲染ppt详情页面
-        return rt("course.html", blog=blog, teacherWork=teacherWork)
+        return rt("job.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204
 
@@ -505,7 +481,7 @@ def register():
     # if email in user_pass:
     if data is not None:
         print("already existed user")
-        flash('already existed user')
+        flash("already existed user")
         return redirect(url_for("home", pagenum=1))
     # salt = PH.get_salt()
     # hashed = PH.get_hash(pw1 + salt)

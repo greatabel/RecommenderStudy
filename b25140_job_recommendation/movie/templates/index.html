@@ -114,9 +114,9 @@
         var task_id = WebUploader.Base.guid(); // 产生文件唯一标识符task_id
 
         var url = new URL(window.location.href);
-        var course_id = url.searchParams.get("course_id");
-        $('#course_id').val(course_id);
-        $("#course_id").hide();
+        var job_id = url.searchParams.get("job_id");
+        $('#job_id').val(job_id);
+        $("#job_id").hide();
 
         var uploader = WebUploader.create({
             swf: './static/webuploader/Uploader.swf',

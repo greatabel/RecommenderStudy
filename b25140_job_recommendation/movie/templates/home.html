@@ -84,11 +84,11 @@ a[href="/chatgpt"] {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <ul class="navbar-nav mr-auto">
   <li class="nav-item active">
-    <a class="nav-link" href="#">主页 <span class="sr-only">(current)</span></a>
+    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
   </li>
 
   <li class="nav-item active">
-    <a class="nav-link" href="/profile">个人资料 <span class="sr-only">(current)</span></a>
+    <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
   </li>
 
 
@@ -96,11 +96,11 @@ a[href="/chatgpt"] {
   {% if session['isadmin'] %}
 
     <li class="nav-item active">
-    <a class="nav-link" href="/blogs/create">发表热门职位 <span class="sr-only">(current)</span></a>
+    <a class="nav-link" href="/blogs/create">Publish <span class="sr-only">(current)</span></a>
   </li>
 
     <li class="nav-item active">
-      <a class="nav-link" href="/blogs">管理热门职位 <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="/blogs">Manage-hotjob <span class="sr-only">(current)</span></a>
     </li>
   {% endif %}
 
@@ -120,16 +120,12 @@ a[href="/chatgpt"] {
         <input type="text" name="keyword" id="keyword" placeholder="输入关键词" class="form-control" autofocus>&nbsp;
       </div>
       &nbsp;&nbsp;
-      <input type="submit" value="搜索" id="btnSearch" class="btn btn-success">
+      <input type="submit" value="Search" id="btnSearch" class="btn btn-success">
     </form>
   </li>
 
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  {% if session['logged_in'] %}
-    <li class="nav-item active">
-      <a class="nav-link" href="/logout">退出登录 <span class="sr-only">(current)</span></a>
-    </li>
-  {% endif %} 
+
 </ul>
 
 
