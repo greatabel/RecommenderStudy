@@ -110,7 +110,6 @@ class Blog(db.Model):
         self.text = text
 
 
-
 ### -------------start of home
 def replace_html_tag(text, word):
     new_word = '<font color="red">' + word + "</font>"

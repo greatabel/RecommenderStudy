@@ -13,7 +13,9 @@ def recommend(user, ratings, pivot_ratings):
     remain_activities["similarity"] = remain_activities["critic"].map(
         pivot_ratings.corr()[user].get
     )
-    remain_activities["sim_rating"] = remain_activities.similarity * remain_activities.rating
+    remain_activities["sim_rating"] = (
+        remain_activities.similarity * remain_activities.rating
+    )
 
     rec = remain_activities.groupby("title").apply(
         lambda s: s.sim_rating.sum() / s.similarity.sum()
@@ -72,7 +74,11 @@ def main(user="Abel"):
     plot_similarity_matrix(pivot_ratings)
     recommended_activities = recommend(user, ratings, pivot_ratings)
     if recommended_activities:
-        print(colored(f"Recommended activities for {user}: {recommended_activities}", "green"))
+        print(
+            colored(
+                f"Recommended activities for {user}: {recommended_activities}", "green"
+            )
+        )
     else:
         print(colored(f"No recommendations found for {user}", "red"))
     return recommended_activities
