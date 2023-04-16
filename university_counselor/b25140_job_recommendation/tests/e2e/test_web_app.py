@@ -34,4 +34,7 @@ def test_register_without_auth(client):
     response = client.post('/register')
     assert response.status_code == 404
 
-
+def test_blogs(client):
+    # Check that we can retrieve the articles page.
+    response = client.post('/blogs')
+    assert response.status_code == 404
