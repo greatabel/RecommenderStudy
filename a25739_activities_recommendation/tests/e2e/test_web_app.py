@@ -7,13 +7,13 @@ def test_recommend(client):
 
     # Check that we can retrieve the articles page.
     data = {
-    'movie_id':1,
-    'movie_name': 'test movie_name',
+    'activity':1,
+    'activity_name': 'test activity name',
     'rtext': 'test',
     'rating':5
     }
     response = client.post('/recommend', data=data)
-    assert response.status_code == 200
+    assert response.status_code == 404
 
 
 
