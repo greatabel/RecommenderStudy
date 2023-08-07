@@ -1,7 +1,0 @@
-numpy
-scipy
-pandas
-Pillow
-pytest
-requests
-fuzzywuzzy
